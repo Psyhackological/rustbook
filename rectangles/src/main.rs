@@ -5,6 +5,13 @@ struct Rectangle {
 }
 
 impl Rectangle {
+    fn square(size: u32) -> Self {
+        Self {
+            width: size,
+            height: size,
+        }
+    }
+
     // &self = self: &Self = self: &Rectangle
     fn area(&self) -> u32 {
         self.width * self.height
@@ -31,6 +38,9 @@ fn main() {
         height: 45,
     };
 
+    let rect4 = Rectangle::square(3);
+
     println!("Can rect1 hold rect2? {}", rect1.can_hold(&rect2));
     println!("Can rect1 hold rect3? {}", rect1.can_hold(&rect3));
+    println!("Can rect1 hold rect4? {}", rect1.can_hold(&rect4));
 }
