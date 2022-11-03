@@ -1,15 +1,7 @@
-mod front_of_house {
-    mod hosting {
-        fn add_to_waitlist() {}
+mod front_of_house; // file with mod declaration
 
-        fn seat_at_table() {}
-    }
+pub use crate::front_of_house::hosting;
 
-    mod serving {
-        fn take_order() {}
-
-        fn serve_order() {}
-
-        fn take_payment() {}
-    }
+pub fn eat_at_restaurant() {
+    hosting::add_to_waitlist();
 }
