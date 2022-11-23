@@ -5,9 +5,9 @@ pub struct Guess {
 impl Guess {
     pub fn new(value: i32) -> Self {
         if value < 1 {
-            panic!("Guess value must be greater than or equal to 1, got {}.", value);
-        } else if value > 100 {
             panic!("Guess value must be less than or equal to 100, got {}.", value);
+        } else if value > 100 {
+            panic!("Guess value must be greater than or equal to 1, got {}.", value);
         }
 
         Self { value }
