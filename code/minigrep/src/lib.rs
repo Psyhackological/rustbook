@@ -105,4 +105,67 @@ Trust me.";
 
         assert_eq!(expected, search_case_insensitive(query, contents));
     }
+    #[test]
+    fn flag_true_when_known() {
+        let expected = true;
+        let args = vec![
+            "target/debug/minigrep".to_string(),
+            "-i".to_string(),
+            "to".to_string(),
+            "poem.txt".to_string(),
+        ];
+        let config = Config::build(&args);
+        let result = config.unwrap().ignore_case; // unwrap from Ok()
+
+        assert_eq!(expected, result);
+
+        let args = vec![
+            "target/debug/minigrep".to_string(),
+            "--ignore-case".to_string(),
+            "to".to_string(),
+            "poem.txt".to_string(),
+        ];
+        let config = Config::build(&args);
+        let result = config.unwrap().ignore_case; // unwrap from Ok()
+
+        assert_eq!(expected, result);
+    }
+    #[test]
+    fn flag_false_when_unknown() {
+        let expected = false;
+        let args = vec![
+            "target/debug/minigrep".to_string(),
+            "-a".to_string(),
+            "to".to_string(),
+            "poem.txt".to_string(),
+        ];
+        let config = Config::build(&args);
+        let result = config.unwrap().ignore_case; // unwrap from Ok()
+
+        assert_eq!(expected, result);
+
+        let args = vec![
+            "target/debug/minigrep".to_string(),
+            "--abc".to_string(),
+            "to".to_string(),
+            "poem.txt".to_string(),
+        ];
+        let config = Config::build(&args);
+        let result = config.unwrap().ignore_case; // unwrap from Ok()
+
+        assert_eq!(expected, result);
+    }
+    #[test]
+    fn flag_false_when_none() {
+        let expected = false;
+        let args = vec![
+            "target/debug/minigrep".to_string(),
+            "to".to_string(),
+            "poem.txt".to_string(),
+        ];
+        let config = Config::build(&args);
+        let result = config.unwrap().ignore_case; // uwwrap from Ok()
+                                                  //
+        assert_eq!(expected, result);
+    }
 }
