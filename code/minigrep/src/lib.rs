@@ -82,6 +82,7 @@ mod tests {
 
     #[test]
     fn case_sensitive() {
+        let expected = vec!["safe, fast, productive."];
         let query = "duct";
         let contents = "\
 Rust:
@@ -89,11 +90,12 @@ safe, fast, productive.
 Pick three.
 Duct tape.";
 
-        assert_eq!(vec!["safe, fast, productive."], search(query, contents));
+        assert_eq!(expected, search(query, contents));
     }
 
     #[test]
     fn case_insensitive() {
+        let expected = vec!["Rust:", "Trust me."];
         let query = "rUsT";
         let contents = "\
 Rust:
@@ -101,9 +103,6 @@ safe, fast, productive.
 Pick three.
 Trust me.";
 
-        assert_eq!(
-            vec!["Rust:", "Trust me."],
-            search_case_insensitive(query, contents)
-        );
+        assert_eq!(expected, search_case_insensitive(query, contents));
     }
 }
