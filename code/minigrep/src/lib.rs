@@ -90,7 +90,8 @@ safe, fast, productive.
 Pick three.
 Duct tape.";
 
-        assert_eq!(expected, search(query, contents));
+        let result = search(query, contents);
+        assert_eq!(expected, result);
     }
 
     #[test]
@@ -102,8 +103,8 @@ Rust:
 safe, fast, productive.
 Pick three.
 Trust me.";
-
-        assert_eq!(expected, search_case_insensitive(query, contents));
+        let result = search_case_insensitive(query, contents);
+        assert_eq!(expected, result);
     }
     #[test]
     fn flag_true_when_known() {
@@ -165,7 +166,6 @@ Trust me.";
         ];
         let config = Config::build(&args);
         let result = config.unwrap().ignore_case; // uwwrap from Ok()
-                                                  //
         assert_eq!(expected, result);
     }
 }
