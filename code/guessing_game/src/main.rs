@@ -21,7 +21,7 @@ fn main() {
             Err(_) => continue,
         };
 
-        if guess < 1 || guess > 100 {
+        if !(1..=100).contains(&guess) {
             println!("The secret number will be between 1 and 100.");
             continue;
         }
