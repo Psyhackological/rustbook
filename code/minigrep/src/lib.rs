@@ -9,26 +9,23 @@ pub struct Config {
 }
 
 impl Config {
-    pub fn build(args: &[String]) -> Result<Self, &'static str> {
-        if args.len() < 3 {
-            return Err("not enough arguments");
-        }
+    pub fn build(mut args: impl Iterator<Item = String>) -> Result<Self, &'static str> {
+        _ = args.next();
 
-        let query: String;
-        let file_path: String;
-        let ignore_case = if args[1].starts_with("-i") || args[1].starts_with("--ignore-case") {
-            true
-        } else {
-            env::var("IGNORE_CASE").is_ok()
+        let query: String = match args.next() {
+            Some(arg) => arg,
+            None => return Err("Didn't get a query string"),
         };
 
-        if args.len() >= 4 {
-            query = args[2].clone();
-            file_path = args[3].clone();
-        } else {
-            query = args[1].clone();
-            file_path = args[2].clone();
-        }
+        let file_path: String = match args.next() {
+            Some(arg) => arg,
+            None => return Err("Didn't get a file path"),
+        };
+
+        let ignore_case = match args.next() {
+            Some(arg) => arg.starts_with("-i") || arg.starts_with("--ignore-case"),
+            None => env::var("IGNORE_CASE").is_ok(),
+        };
 
         Ok(Self {
             query,
@@ -55,25 +52,17 @@ pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
 }
 
 pub fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
-    let mut results = Vec::new();
-    for line in contents.lines() {
-        if line.contains(query) {
-            results.push(line);
-        }
-    }
-    results
+    contents
+        .lines()
+        .filter(|line| line.contains(query))
+        .collect()
 }
 
 pub fn search_case_insensitive<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
-    let query = query.to_lowercase();
-    let mut results = Vec::new();
-
-    for line in contents.lines() {
-        if line.to_lowercase().contains(&query) {
-            results.push(line);
-        }
-    }
-    results
+    contents
+        .lines()
+        .filter(|line| line.to_lowercase().contains(&query.to_lowercase()))
+        .collect()
 }
 
 #[cfg(test)]
@@ -111,22 +100,22 @@ Trust me.";
         let expected = true;
         let args = vec![
             "target/debug/minigrep".to_string(),
-            "-i".to_string(),
             "to".to_string(),
             "poem.txt".to_string(),
+            "-i".to_string(),
         ];
-        let config = Config::build(&args);
+        let config = Config::build(args.into_iter());
         let result = config.unwrap().ignore_case; // unwrap from Ok()
 
         assert_eq!(expected, result);
 
         let args = vec![
             "target/debug/minigrep".to_string(),
-            "--ignore-case".to_string(),
             "to".to_string(),
             "poem.txt".to_string(),
+            "--ignore-case".to_string(),
         ];
-        let config = Config::build(&args);
+        let config = Config::build(args.into_iter());
         let result = config.unwrap().ignore_case; // unwrap from Ok()
 
         assert_eq!(expected, result);
@@ -136,22 +125,22 @@ Trust me.";
         let expected = false;
         let args = vec![
             "target/debug/minigrep".to_string(),
-            "-a".to_string(),
             "to".to_string(),
             "poem.txt".to_string(),
+            "-a".to_string(),
         ];
-        let config = Config::build(&args);
+        let config = Config::build(args.into_iter());
         let result = config.unwrap().ignore_case; // unwrap from Ok()
 
         assert_eq!(expected, result);
 
         let args = vec![
             "target/debug/minigrep".to_string(),
-            "--abc".to_string(),
             "to".to_string(),
             "poem.txt".to_string(),
+            "--abc".to_string(),
         ];
-        let config = Config::build(&args);
+        let config = Config::build(args.into_iter());
         let result = config.unwrap().ignore_case; // unwrap from Ok()
 
         assert_eq!(expected, result);
@@ -164,7 +153,7 @@ Trust me.";
             "to".to_string(),
             "poem.txt".to_string(),
         ];
-        let config = Config::build(&args);
+        let config = Config::build(args.into_iter());
         let result = config.unwrap().ignore_case; // uwwrap from Ok()
         assert_eq!(expected, result);
     }
