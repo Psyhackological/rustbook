@@ -1,9 +1,9 @@
-use add_one;
-use add_two;
-use rand;
+use rand::prelude::*;
 
 fn main() {
-    let num = 10;
-    println!("Hello, world! {num} plus one is {}!", add_one::add_one(num));
-    println!("Hello, world! {num} plus two is {}!", add_two::add_two(num));
+    let num: i32 = rand::thread_rng().gen_range(1..=6);
+    println!("{num}+1={}", add_one::add_one(num));
+
+    let num: i32 = rand::thread_rng().gen_range(1..=6);
+    println!("{num}+2={}", add_two::add_two(num));
 }
