@@ -1,13 +1,13 @@
 use std::convert::From;
 
 #[derive(Debug, PartialEq)]
-struct Kelvin(f32);
+pub struct Kelvin(f32);
 
 #[derive(Debug, PartialEq)]
-struct Celsius(f32);
+pub struct Celsius(f32);
 
 impl Kelvin {
-    fn new(temp: f32) -> Self {
+    pub fn new(temp: f32) -> Self {
         if (0.00..=1273.15).contains(&temp) {
             Self(temp)
         } else {
@@ -15,21 +15,21 @@ impl Kelvin {
         }
     }
 
-    fn min() -> Self {
+    pub fn min() -> Self {
         Self(0.0)
     }
 
-    fn max() -> Self {
+    pub fn max() -> Self {
         Self(1273.15)
     }
 
-    fn inner(&self) -> f32 {
+    pub fn inner(&self) -> f32 {
         self.0
     }
 }
 
 impl Celsius {
-    fn new(temp: f32) -> Self {
+    pub fn new(temp: f32) -> Self {
         if (-273.15..=726.85).contains(&temp) {
             Self(temp)
         } else {
@@ -37,15 +37,15 @@ impl Celsius {
         }
     }
 
-    fn min() -> Self {
+    pub fn min() -> Self {
         Self(-273.15)
     }
 
-    fn max() -> Self {
+    pub fn max() -> Self {
         Self(1000.0)
     }
 
-    fn inner(&self) -> f32 {
+    pub fn inner(&self) -> f32 {
         self.0
     }
 }
