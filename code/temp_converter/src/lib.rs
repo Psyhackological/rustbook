@@ -8,7 +8,7 @@ struct Celsius(f32);
 
 impl Kelvin {
     fn new(temp: f32) -> Self {
-        if temp >= 0.00 && temp <= 1273.15 {
+        if (0.00..=1273.15).contains(&temp) {
             Self(temp)
         } else {
             panic!("Celsius should be between 0 K and 1273.15 K");
@@ -30,8 +30,8 @@ impl Kelvin {
 
 impl Celsius {
     fn new(temp: f32) -> Self {
-        if temp >= -273.15 && temp <= 726.85 {
-            return Self(temp);
+        if (-273.15..=726.85).contains(&temp) {
+            Self(temp)
         } else {
             panic!("Celsius should be between -273.15 C and 726.85 C");
         }
