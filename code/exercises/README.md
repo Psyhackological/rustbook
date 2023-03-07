@@ -1,11 +1,5 @@
-# [Control Flow Summary - Exercises](https://doc.rust-lang.org/nightly/book/ch03-05-control-flow.html#summary)
+# Exercises from RustBook
+My solutions.
 
-To practice with the concepts discussed in this chapter, try building programs to do the following:
-- Convert temperatures between Fahrenheit and Celsius.
-- Generate the nth Fibonacci number.
-- Print the lyrics to the Christmas carol “The Twelve Days of Christmas,” taking advantage of the repetition in the song.
-
-## Exercises
-- [ ] Convert temperatures between Fahrenheit and Celsius.
-- [ ] Generate the nth Fibonacci number.
-- [ ] Print the lyrics to the Christmas carol “The Twelve Days of Christmas,” taking advantage of the repetition in the song.
+- [Chapter 3. Common Programming Concepts](ch3/)
+- [Chapter 8. Common Collections](ch8/)
