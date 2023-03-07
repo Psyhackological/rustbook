@@ -7,7 +7,7 @@ pub struct DraftPost {
 }
 
 impl Post {
-    pub fn new() -> DraftPost {
+    pub fn init() -> DraftPost {
         DraftPost {
             content: String::new(),
         }
