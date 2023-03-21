@@ -1,4 +1,4 @@
-use blog::Post;
+use different_types::Post;
 
 fn main() {
     let mut post = Post::init();
