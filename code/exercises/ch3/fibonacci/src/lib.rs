@@ -6,6 +6,7 @@ use num_traits::{One, Zero};
 // | F(n)   | = | 1 0 |   * | F(0) |
 pub struct Fibonacci;
 
+// Implement the Default trait for easier initialization.
 impl Default for Fibonacci {
     fn default() -> Self {
         Self::new()
@@ -13,6 +14,7 @@ impl Default for Fibonacci {
 }
 
 impl Fibonacci {
+    // Create a new Fibonacci struct.
     pub fn new() -> Self {
         Fibonacci
     }
@@ -23,30 +25,37 @@ impl Fibonacci {
             return BigUint::zero();
         }
 
-        // Initialize the Fibonacci matrix.
-        let mut matrix = vec![
-            vec![BigUint::one(), BigUint::one()],
-            vec![BigUint::one(), BigUint::zero()],
+        // Initialize the 2x2 Fibonacci matrix as a flat array with 4 elements.
+        let mut matrix = [
+            BigUint::one(),
+            BigUint::one(),
+            BigUint::one(),
+            BigUint::zero(),
         ];
 
         // Compute the matrix raised to the power (n - 1).
         self.matrix_pow(&mut matrix, n - 1);
-        matrix[0][0].clone()
+
+        // Return the top-left element, which is the nth Fibonacci number.
+        matrix[0].clone()
     }
 
-    // Multiply two matrices of BigUint elements.
-    fn matrix_mult(&self, a: &[Vec<BigUint>], b: &[Vec<BigUint>]) -> Vec<Vec<BigUint>> {
-        let a00 = &a[0][0] * &b[0][0] + &a[0][1] * &b[1][0];
-        let a01 = &a[0][0] * &b[0][1] + &a[0][1] * &b[1][1];
-        let a10 = &a[1][0] * &b[0][0] + &a[1][1] * &b[1][0];
-        let a11 = &a[1][0] * &b[0][1] + &a[1][1] * &b[1][1];
+    // Multiply two 2x2 matrices of BigUint elements.
+    // Takes two flat arrays of length 4 as input.
+    fn matrix_mult(&self, a: &[BigUint; 4], b: &[BigUint; 4]) -> [BigUint; 4] {
+        // Compute the elements of the resulting matrix using matrix multiplication.
+        let a00 = &a[0] * &b[0] + &a[1] * &b[2];
+        let a01 = &a[0] * &b[1] + &a[1] * &b[3];
+        let a10 = &a[2] * &b[0] + &a[3] * &b[2];
+        let a11 = &a[2] * &b[1] + &a[3] * &b[3];
 
-        // Return the result as a new matrix.
-        vec![vec![a00, a01], vec![a10, a11]]
+        // Return the result as a new flat array.
+        [a00, a01, a10, a11]
     }
 
     // Compute the matrix raised to the power n using the binary exponentiation method.
-    fn matrix_pow(&self, matrix: &mut Vec<Vec<BigUint>>, n: usize) {
+    // Takes a mutable reference to a flat array of length 4 and an integer power n.
+    fn matrix_pow(&self, matrix: &mut [BigUint; 4], n: usize) {
         if n == 0 || n == 1 {
             return;
         }
@@ -65,9 +74,11 @@ impl Fibonacci {
             *matrix = temp_matrix_squared;
         } else {
             // If n is odd, the result is the product of the squared matrix and the original matrix.
-            let fib_matrix = vec![
-                vec![BigUint::one(), BigUint::one()],
-                vec![BigUint::one(), BigUint::zero()],
+            let fib_matrix = [
+                BigUint::one(),
+                BigUint::one(),
+                BigUint::one(),
+                BigUint::zero(),
             ];
             *matrix = self.matrix_mult(&temp_matrix_squared, &fib_matrix);
         }
