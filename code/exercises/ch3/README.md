@@ -6,6 +6,6 @@ To practice with the concepts discussed in this chapter, try building programs t
 - Print the lyrics to the Christmas carol “The Twelve Days of Christmas,” taking advantage of the repetition in the song.
 
 ## Exercises
-- [ ] Temp converter
-- [ ] Fibonacci
-- [ ] The 12 Days of Christmas
+- [x] Temp converter
+- [x] Fibonacci
+- [x] Christmas Carol
