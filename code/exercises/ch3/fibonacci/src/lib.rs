@@ -84,3 +84,60 @@ impl Fibonacci {
         }
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    // Helper function to create a new Fibonacci instance
+    fn create_fib(n: usize) -> BigUint {
+        Fibonacci::new().nth(n)
+    }
+
+    #[test]
+    fn fib_0() {
+        let fib_0 = create_fib(0);
+        assert_eq!(fib_0, BigUint::from(0u32), "F(0) should be 0");
+    }
+
+    #[test]
+    fn fib_1_and_2() {
+        let fib_1 = create_fib(1);
+        assert_eq!(fib_1, BigUint::from(1u32), "F(1) should be 1");
+
+        let fib_2 = create_fib(2);
+        assert_eq!(fib_2, BigUint::from(1u32), "F(2) should be 1");
+
+        assert_eq!(fib_1, fib_2, "F(1) and F(2) should both be 1");
+    }
+
+    #[test]
+    fn fib_7() {
+        let fib_7 = create_fib(7);
+        assert_eq!(fib_7, BigUint::from(13u32), "F(7) should be 13");
+    }
+
+    #[test]
+    fn fib_77() {
+        let fib_77 = create_fib(77);
+        assert_eq!(
+            fib_77,
+            BigUint::parse_bytes(b"5527939700884757", 10).unwrap(),
+            "The 77th Fibonacci number should be 5527939700884757"
+        );
+    }
+
+    #[test]
+    fn fib_777() {
+        let fib_777 = create_fib(777);
+        assert_eq!(
+            fib_777,
+            BigUint::parse_bytes(
+                b"1081213530912648191985419587942084110095342850438593857649766278346130479286685742885693301250359913460718567974798268702550329302771992851392180275594318434818082",
+                10
+            )
+            .unwrap(),
+            "The 777th Fibonacci number should be 1081213530912648191985419587942084110095342850438593857649766278346130479286685742885693301250359913460718567974798268702550329302771992851392180275594318434818082"
+        );
+    }
+}
