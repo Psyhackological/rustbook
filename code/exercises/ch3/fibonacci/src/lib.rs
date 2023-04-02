@@ -89,7 +89,7 @@ impl Fibonacci {
 mod tests {
     use super::*;
 
-    // Helper function to create a new Fibonacci instance
+    // Helper function to create a new BigUint instance through Fibonacci's new
     fn create_fib(n: usize) -> BigUint {
         Fibonacci::new().nth(n)
     }
