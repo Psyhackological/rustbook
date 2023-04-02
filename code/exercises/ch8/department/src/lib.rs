@@ -52,11 +52,16 @@ impl Company {
 
     // List all employees in a department, sorted alphabetically
     pub fn list_department(&self, department: &str) -> Option<Vec<String>> {
-        self.data.get(department).map(|employees| {
+        self.data.get(department).and_then(|employees| {
             let mut sorted = employees.clone();
             sorted.sort();
-            sorted
-        })
+            // Check if the department has no employees
+            if sorted.is_empty() {
+                None
+            } else {
+                Some(sorted)
+            }
+        }) // Flatten the result to get rid of nested Option
     }
 
     // List all employees in the company by department, sorted alphabetically
