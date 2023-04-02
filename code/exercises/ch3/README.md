@@ -7,6 +7,7 @@ To practice with the concepts discussed in this chapter, try building programs t
 
 ## Exercises
 - [x] 🥶 Temp converter 🥵
+
 This program converts temperatures between Fahrenheit and Celsius. The user is prompted for the input of a temperature value and its unit (C or F). The program reads the input, parses the temperature value and unit, and creates a Temperature enumeration based on it. The Temperature instance converts the temperature to the opposite unit by calling the `convert` method. Finally, the program prints the original and converted temperature.
 
 Program flow example:
@@ -16,6 +17,7 @@ Enter the temperature value followed by its unit (C or F): 32F
 ```
 
 - [x] 🔢 Fibonacci 🔢
+
 Calculates the nth Fibonacci number using the matrix exponentiation method. The Fibonacci struct provides a method `nth` that takes an integer `n` and returns the nth Fibonacci number as a `BigUint`. The program uses the `num_bigint` and `num_traits` crates to deal with large numbers. The main function reads the user's input, parses the integer `n` and calls the `nth` method of the `Fibonacci `struct to calculate the nth Fibonacci number. Finally, it prints the result.
 
 Program flow example:
@@ -25,6 +27,7 @@ Fibonacci(777) = 108121353091264819198541958794208411009534285043859385764976627
 ```
 
 - [x] 🎄 Christmas Carols 🎄
+
 It will print out words to 'The 12 Days of Christmas'. The main function iterates through the twelve days. For each day, it calls the `print_lyrics_for_day` function. This function prints a text for a given day, including its ordinal number and gifts received on that day. It also takes advantage of the repetition in the song by looping through the gifts for each day in reverse order.
 
 Last day output:
