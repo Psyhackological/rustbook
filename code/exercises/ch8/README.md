@@ -47,7 +47,7 @@ Original: first apple
 Pig Latin: irst-fay apple-hay
 ```
 
-- [x] 🎄 Department 🎄
+- [x] 👥 Department 👥
 
 Manages employees and their departments within a company. It allows users to `add`, `remove` and `move` employees between departments, as well as `list` employees within specific departments or across the entire company. The user interacts with the program through a text interface. The user enters commands such as **Add**, **Remove**, **List** and **Move**.
 
