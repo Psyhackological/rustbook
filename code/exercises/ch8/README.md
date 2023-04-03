@@ -6,7 +6,7 @@ Vectors, strings, and hash maps will provide a large amount of functionality nec
 - Using a hash map and vectors, create a text interface to allow a user to add employee names to a department in a company. For example, “Add Sally to Engineering” or “Add Amir to Sales.” Then let the user retrieve a list of all people in a department or all people in the company by department, sorted alphabetically.
 
 ## Exercises
-- [x] 📊 Vector median and mode 📊
+- [x] 📊 Median and Mode Calculator 📊
 
 This program calculates the median and mode of a list of `i32` numbers supplied by the user. The `calculate_median` function arranges the numbers and calculates the median based on the length of the list. The `calculate_mode` function uses a hash map to count the occurrences of each number and finds the mode. The main function reads user input, parses it into a list of `i32` numbers, calls `calculate_median` and `calculate_mode`. It then prints the median and mode (or a message that all numbers occur equally often).
 

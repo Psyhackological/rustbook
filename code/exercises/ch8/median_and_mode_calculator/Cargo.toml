@@ -1,5 +1,5 @@
 [package]
-name = "vector_median_and_mode"
+name = "median_and_mode_calculator"
 version = "0.1.0"
 edition = "2021"
 

@@ -1,5 +1,5 @@
+use median_and_mode_calculator::{calculate_median, calculate_mode};
 use std::io;
-use vector_median_and_mode::{calculate_median, calculate_mode};
 
 fn main() {
     println!("Enter numbers separated by spaces or commas:");
