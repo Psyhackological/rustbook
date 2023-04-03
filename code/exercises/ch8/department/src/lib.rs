@@ -50,6 +50,23 @@ impl Company {
         Err(format!("Department {} not found.", department))
     }
 
+    pub fn move_employee(
+        &mut self,
+        employee: &str,
+        from_department: &str,
+        to_department: &str,
+    ) -> Result<(), String> {
+        // Remove the employee from the old department
+        match self.remove_employee(employee, from_department) {
+            Ok(()) => {
+                // Add the employee to the new department
+                self.add_employee(employee, to_department);
+                Ok(())
+            }
+            Err(message) => Err(message),
+        }
+    }
+
     // List all employees in a department, sorted alphabetically
     pub fn list_department(&self, department: &str) -> Option<Vec<String>> {
         self.data.get(department).and_then(|employees| {
@@ -127,6 +144,19 @@ impl Company {
                 })
                 .collect::<Vec<String>>()
                 .join("\n\n")
+        }
+        // Move employee to another department
+        else if parts.len() >= 6 && parts[0] == "Move" && parts[2] == "from" && parts[4] == "to" {
+            let employee = parts[1];
+            let from_department = parts[3];
+            let to_department = parts[5];
+            match self.move_employee(employee, from_department, to_department) {
+                Ok(()) => format!(
+                    "Moved {} from the {} department to the {} department.",
+                    employee, from_department, to_department
+                ),
+                Err(message) => message,
+            }
         } else {
             // Handle invalid commands
             String::from("Invalid command. Please try again.")
