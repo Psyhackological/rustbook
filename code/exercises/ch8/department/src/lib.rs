@@ -121,7 +121,7 @@ impl Company {
             }
         }
         // List all employees in the company by department
-        else if input.trim() == "List all" {
+        else if input.trim() == "List All" {
             let all_departments = self.list_all();
             if all_departments.is_empty() {
                 String::from("No employees found in the company.")
