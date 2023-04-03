@@ -39,6 +39,10 @@ impl Company {
             if let Some(index) = employees.iter().position(|e| e == employee) {
                 // Remove the employee from the list
                 employees.remove(index);
+                // Remove the department entry if there are no employees left in the department
+                if employees.is_empty() {
+                    self.data.remove(department);
+                }
                 return Ok(());
             } else {
                 return Err(format!(
@@ -116,6 +120,25 @@ impl Company {
                 Err(message) => message,
             }
         }
+        // List all employees in the company by department
+        else if input.trim() == "List all" {
+            let all_departments = self.list_all();
+            if all_departments.is_empty() {
+                String::from("No employees found in the company.")
+            } else {
+                all_departments
+                    .iter()
+                    .map(|(department, employees)| {
+                        format!(
+                            "Employees in the {} department:\n{}",
+                            department,
+                            employees.join("\n")
+                        )
+                    })
+                    .collect::<Vec<String>>()
+                    .join("\n\n")
+            }
+        }
         // List employees in a specific department
         else if parts.len() == 2 && parts[0] == "List" {
             let department = parts[1];
@@ -129,21 +152,6 @@ impl Company {
                 }
                 None => format!("No employees found in the {} department.", department),
             }
-        }
-        // List all employees in the company by department
-        else if input == "List all" {
-            let all_departments = self.list_all();
-            all_departments
-                .iter()
-                .map(|(department, employees)| {
-                    format!(
-                        "Employees in the {} department:\n{}",
-                        department,
-                        employees.join("\n")
-                    )
-                })
-                .collect::<Vec<String>>()
-                .join("\n\n")
         }
         // Move employee to another department
         else if parts.len() >= 6 && parts[0] == "Move" && parts[2] == "from" && parts[4] == "to" {
