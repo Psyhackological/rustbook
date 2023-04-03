@@ -16,7 +16,7 @@ impl Default for Fibonacci {
 impl Fibonacci {
     // Create a new Fibonacci struct.
     pub fn new() -> Self {
-        Fibonacci
+        Self
     }
 
     // Compute the nth Fibonacci number using the matrix exponentiation method.

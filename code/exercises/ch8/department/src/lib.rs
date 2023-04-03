@@ -14,8 +14,8 @@ impl Default for Company {
 
 impl Company {
     // Constructor for the Company struct
-    pub fn new() -> Company {
-        Company {
+    pub fn new() -> Self {
+        Self {
             // Initialize an empty HashMap to store departments and their employees
             data: HashMap::new(),
         }

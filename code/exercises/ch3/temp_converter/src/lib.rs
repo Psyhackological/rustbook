@@ -6,11 +6,11 @@ pub enum Temperature {
 impl Temperature {
     pub fn convert(&self) -> Self {
         match self {
-            Temperature::Celsius(c) => {
+            Self::Celsius(c) => {
                 let f = c * 9.0 / 5.0 + 32.0;
                 Temperature::Fahrenheit(f)
             }
-            Temperature::Fahrenheit(f) => {
+            Self::Fahrenheit(f) => {
                 let c = (f - 32.0) * 5.0 / 9.0;
                 Temperature::Celsius(c)
             }
@@ -20,8 +20,8 @@ impl Temperature {
     #[allow(dead_code)]
     fn inner(&self) -> f64 {
         match self {
-            Temperature::Celsius(c) => *c,
-            Temperature::Fahrenheit(f) => *f,
+            Self::Celsius(c) => *c,
+            Self::Fahrenheit(f) => *f,
         }
     }
 }
